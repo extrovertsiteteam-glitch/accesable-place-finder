@@ -1,0 +1,167 @@
+/* ===================================================================
+   Accessible Place Finder - Accessibility Overrides & Modes
+   WCAG 2.1 AAA Compliant High Contrast & Custom Preferences
+   =================================================================== */
+
+/* 1. Large Text Mode */
+body.font-size-large {
+  --font-size-base: 18px;
+}
+
+/* 2. Extra Large Text Mode */
+body.font-size-xlarge {
+  --font-size-base: 21px;
+}
+
+/* 3. Reduced Motion Mode */
+body.reduced-motion *,
+body.reduced-motion *::before,
+body.reduced-motion *::after {
+  animation-duration: 0.001ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.001ms !important;
+  scroll-behavior: auto !important;
+}
+
+/* 4. High Contrast Theme (WCAG AAA Level) */
+body.high-contrast {
+  --primary: #ffff00;
+  --primary-hover: #e6e600;
+  --primary-light: #333300;
+  --primary-dark: #ffff00;
+  
+  --secondary: #00ffff;
+  --secondary-hover: #00cccc;
+  --secondary-light: #003333;
+  
+  --bg-page: #000000;
+  --bg-surface: #0a0a0a;
+  --bg-subtle: #1a1a1a;
+  
+  --text-main: #ffffff;
+  --text-muted: #e2e8f0;
+  --text-light: #cbd5e1;
+  
+  --border-color: #ffffff;
+  --border-focus: #ffff00;
+  
+  --shadow-sm: none;
+  --shadow-md: none;
+  --shadow-lg: none;
+  --shadow-xl: none;
+}
+
+body.high-contrast a {
+  color: #00ffff;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+}
+
+body.high-contrast a:hover,
+body.high-contrast a:focus-visible {
+  color: #ffffff;
+  background-color: #003333;
+}
+
+body.high-contrast :focus-visible {
+  outline: 4px solid #ffff00 !important;
+  outline-offset: 3px !important;
+}
+
+body.high-contrast .hero-section {
+  background: #000000;
+  border-bottom: 3px solid #ffff00;
+}
+
+body.high-contrast .hero-title,
+body.high-contrast .section-title,
+body.high-contrast .modal-title,
+body.high-contrast .place-card-title {
+  color: #ffff00;
+}
+
+body.high-contrast .btn-primary {
+  background-color: #ffff00;
+  color: #000000;
+  font-weight: 800;
+  border: 2px solid #ffffff;
+}
+
+body.high-contrast .btn-primary:hover,
+body.high-contrast .btn-primary:focus-visible {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+body.high-contrast .btn-outline {
+  border: 2px solid #ffffff;
+  color: #ffffff;
+}
+
+body.high-contrast .btn-outline:hover,
+body.high-contrast .btn-outline:focus-visible {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+body.high-contrast .place-card,
+body.high-contrast .filter-sidebar,
+body.high-contrast .category-card,
+body.high-contrast .modal-container,
+body.high-contrast .stat-card,
+body.high-contrast .data-table-container {
+  border: 2px solid #ffffff;
+}
+
+body.high-contrast .facility-badge {
+  border: 2px solid #ffffff !important;
+  color: #ffffff !important;
+  background-color: #000000 !important;
+}
+
+body.high-contrast .badge-wheelchair {
+  color: #00ff66 !important;
+  border-color: #00ff66 !important;
+}
+
+body.high-contrast .badge-ramp {
+  color: #00ffff !important;
+  border-color: #00ffff !important;
+}
+
+body.high-contrast .badge-washroom {
+  color: #ff99ff !important;
+  border-color: #ff99ff !important;
+}
+
+body.high-contrast .badge-elevator {
+  color: #ffff00 !important;
+  border-color: #ffff00 !important;
+}
+
+body.high-contrast .badge-parking {
+  color: #ffaa00 !important;
+  border-color: #ffaa00 !important;
+}
+
+body.high-contrast .facility-check-item.verified {
+  background-color: #003311;
+  border: 2px solid #00ff66;
+  color: #ffffff;
+}
+
+body.high-contrast .facility-check-item.missing {
+  background-color: #330000;
+  border: 2px solid #ff3333;
+  color: #ffffff;
+}
+
+body.high-contrast .a11y-toolbar {
+  background-color: #000000;
+  border-bottom: 2px solid #ffff00;
+}
+
+body.high-contrast .data-table th,
+body.high-contrast .data-table td {
+  border-bottom: 1px solid #ffffff;
+}

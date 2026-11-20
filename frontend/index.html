@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Accessible Place Finder - Discover, search, and verify wheelchair accessible places, ramps, accessible washrooms, elevators, and disabled parking facilities." />
+  <title>Accessible Place Finder | Discover Accessible Locations</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/accessibility.css" />
+</head>
+<body>
+  <!-- Keyboard Accessible Skip Navigation Link -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- Top Accessibility Toolbar -->
+  <aside class="a11y-toolbar" aria-label="Accessibility Options Toolbar">
+    <div class="container">
+      <div class="a11y-title">
+        <span aria-hidden="true">♿</span>
+        <span>Accessibility Display Preferences:</span>
+      </div>
+      <div class="a11y-controls">
+        <button id="btn-toggle-contrast" class="a11y-btn" aria-pressed="false" title="Switch to WCAG AAA High Contrast Color Scheme">
+          <span aria-hidden="true">◑</span> High Contrast
+        </button>
+        <button id="btn-toggle-fontsize" class="a11y-btn" title="Cycle font sizes for improved readability">
+          <span aria-hidden="true">A</span> Text Size: Normal
+        </button>
+        <button id="btn-toggle-motion" class="a11y-btn" aria-pressed="false" title="Reduce animations and transitions">
+          <span aria-hidden="true">⏵</span> Reduced Motion
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Navigation Header -->
+  <header class="main-header">
+    <div class="container">
+      <nav class="navbar" aria-label="Main Navigation">
+        <a href="#home" class="brand-logo" aria-label="Accessible Place Finder Home">
+          <div class="brand-icon" aria-hidden="true">♿</div>
+          <span>Accessible Place Finder</span>
+        </a>
+
+        <ul class="nav-menu" id="nav-menu">
+          <li><a href="#home" class="nav-link active" data-view="home">Home</a></li>
+          <li><a href="#search" class="nav-link" data-view="search">Search Places</a></li>
+          <li><a href="#about" class="nav-link" data-view="about">About & A11y</a></li>
+          <li><a href="#contact" class="nav-link" data-view="contact">Contact</a></li>
+          <li><a href="#admin" class="nav-link" id="nav-admin-link" data-view="admin" style="display:none; color:var(--accent);">🛡️ Admin</a></li>
+        </ul>
+
+        <div class="nav-auth" id="nav-auth-actions">
+          <button id="btn-open-login" class="btn btn-outline btn-sm">Login</button>
+          <button id="btn-open-register" class="btn btn-primary btn-sm">Register</button>
+        </div>
+
+        <button class="mobile-nav-toggle" id="mobile-nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+          ☰
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content Area -->
+  <main id="main-content">
+    
+    <!-- =============================================================
+         VIEW 1: HOME PAGE
+         ============================================================= -->
+    <div class="view-container" id="view-home">
+      <!-- Hero Section -->
+      <section class="hero-section" aria-labelledby="hero-title">
+        <div class="container">
+          <div class="hero-badge">
+            <span aria-hidden="true">🌟</span>
+            <span>Empowering Universal Access & Independent Mobility</span>
+          </div>
+          <h1 class="hero-title" id="hero-title">Find Places You Can Access With Ease</h1>
+          <p class="hero-subtitle">
+            Search verified venues, restaurants, healthcare centers, parks, and transit hubs tailored to your specific accessibility requirements.
+          </p>
+
+          <!-- Hero Search Box -->
+          <div class="hero-search-wrapper" role="search">
+            <label for="hero-search-input" class="visually-hidden" style="position:absolute;width:1px;height:1px;overflow:hidden;">Search places by name</label>
+            <input type="text" id="hero-search-input" class="hero-search-input" placeholder="Search by place name (e.g. Hospital, Bakery, Library)..." />
+            <button id="hero-search-btn" class="btn btn-primary" aria-label="Search places">
+              <span>🔍 Search</span>
+            </button>
+          </div>
+
+          <!-- Quick Category Filter Pills -->
+          <div class="hero-category-pills">
+            <button class="pill-btn" data-category="Healthcare">🏥 Healthcare</button>
+            <button class="pill-btn" data-category="Restaurant & Cafe">☕ Restaurants & Cafes</button>
+            <button class="pill-btn" data-category="Education & Library">📚 Libraries</button>
+            <button class="pill-btn" data-category="Park & Recreation">🌳 Parks & Trails</button>
+            <button class="pill-btn" data-category="Shopping & Mall">🛍️ Shopping Centers</button>
+            <button class="pill-btn" data-category="Transit & Station">🚆 Transit Hubs</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Popular & Highly Rated Places -->
+      <section class="section" aria-labelledby="popular-heading">
+        <div class="container">
+          <div class="section-header">
+            <h2 class="section-title" id="popular-heading">Popular Accessible Places</h2>
+            <p class="section-desc">Top-rated public and private destinations verified for barrier-free accessibility.</p>
+          </div>
+          <div class="places-grid" id="popular-places-grid">
+            <!-- Dynamically populated via places.js -->
+          </div>
+        </div>
+      </section>
+
+      <!-- Accessibility Categories -->
+      <section class="section section-subtle" aria-labelledby="categories-heading">
+        <div class="container">
+          <div class="section-header">
+            <h2 class="section-title" id="categories-heading">Explore by Category</h2>
+            <p class="section-desc">Browse destinations organized by everyday services and recreation.</p>
+          </div>
+          <div class="categories-grid" id="categories-grid">
+            <!-- Dynamically populated via places.js -->
+          </div>
+        </div>
+      </section>
+
+      <!-- Recently Added Places -->
+      <section class="section" aria-labelledby="recent-heading">
+        <div class="container">
+          <div class="section-header">
+            <h2 class="section-title" id="recent-heading">Recently Added Locations</h2>
+            <p class="section-desc">Freshly audited accessible destinations added to our community database.</p>
+          </div>
+          <div class="places-grid" id="recent-places-grid">
+            <!-- Dynamically populated via places.js -->
+          </div>
+          <div style="text-align:center; margin-top:2.5rem;">
+            <a href="#search" class="btn btn-primary btn-lg">Browse All Accessible Places &rarr;</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Mission Highlights -->
+      <section class="section" style="border-top:1px solid var(--border-color);">
+        <div class="container">
+          <div class="section-header">
+            <h2 class="section-title">Built For Everyone</h2>
+            <p class="section-desc">Our core principles ensure accessibility is never an afterthought.</p>
+          </div>
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:2rem;">
+            <div style="background:var(--bg-surface); padding:2rem; border-radius:var(--radius-lg); border:1px solid var(--border-color); box-shadow:var(--shadow-sm);">
+              <div style="font-size:2.5rem; margin-bottom:1rem;">♿</div>
+              <h3 style="font-size:1.25rem; font-weight:700; margin-bottom:0.5rem;">Verified Mobility Facilities</h3>
+              <p style="color:var(--text-muted); line-height:1.6;">Detailed breakdowns for ramps, door widths, elevators, accessible restrooms, and dedicated handicap parking spaces.</p>
+            </div>
+            <div style="background:var(--bg-surface); padding:2rem; border-radius:var(--radius-lg); border:1px solid var(--border-color); box-shadow:var(--shadow-sm);">
+              <div style="font-size:2.5rem; margin-bottom:1rem;">👥</div>
+              <h3 style="font-size:1.25rem; font-weight:700; margin-bottom:0.5rem;">Community Reviews</h3>
+              <p style="color:var(--text-muted); line-height:1.6;">Real reviews written by wheelchair users, caregivers, and people with disabilities sharing practical navigation advice.</p>
+            </div>
+            <div style="background:var(--bg-surface); padding:2rem; border-radius:var(--radius-lg); border:1px solid var(--border-color); box-shadow:var(--shadow-sm);">
+              <div style="font-size:2.5rem; margin-bottom:1rem;">🚩</div>
+              <h3 style="font-size:1.25rem; font-weight:700; margin-bottom:0.5rem;">Accuracy Audits & Reporting</h3>
+              <p style="color:var(--text-muted); line-height:1.6;">Found a broken elevator or locked accessible stall? Report it immediately so our moderation team can verify and resolve.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- =============================================================
+         VIEW 2: SEARCH & FILTER PLACES
+         ============================================================= -->
+    <div class="view-container" id="view-search" style="display:none;">
+      <div class="container" style="padding-top:2.5rem; padding-bottom:4rem;">
+        
+        <div class="search-page-layout">
+          <!-- Sidebar Filters -->
+          <aside class="filter-sidebar" aria-label="Search filters">
+            <div class="filter-sidebar-header">
+              <h2 class="filter-sidebar-title"><span>⚙️</span> Filter Places</h2>
+              <button class="btn btn-outline btn-sm" id="btn-reset-filters">Reset</button>
+            </div>
+
+            <!-- Keyword Search -->
+            <div class="filter-group">
+              <label for="filter-keyword-input" class="filter-group-label">Search by Name</label>
+              <input type="text" id="filter-keyword-input" class="filter-input" placeholder="Type place name..." />
+            </div>
+
+            <!-- City Filter -->
+            <div class="filter-group">
+              <label for="filter-city-select" class="filter-group-label">Filter by City</label>
+              <select id="filter-city-select" class="filter-select">
+                <option value="">All Cities</option>
+                <!-- Populated dynamically -->
+              </select>
+            </div>
+
+            <!-- Category Filter -->
+            <div class="filter-group">
+              <label for="filter-category-select" class="filter-group-label">Category</label>
+              <select id="filter-category-select" class="filter-select">
+                <option value="">All Categories</option>
+                <option value="Healthcare">Healthcare</option>
+                <option value="Restaurant & Cafe">Restaurant & Cafe</option>
+                <option value="Education & Library">Education & Library</option>
+                <option value="Park & Recreation">Park & Recreation</option>
+                <option value="Shopping & Mall">Shopping & Mall</option>
+                <option value="Transit & Station">Transit & Station</option>
+                <option value="Museum & Culture">Museum & Culture</option>
+                <option value="Government & Public">Government & Public</option>
+              </select>
+            </div>
+
+            <!-- Accessibility Facilities Filter Checkboxes -->
+            <div class="filter-group">
+              <span class="filter-group-label">Accessibility Facilities</span>
+              
+              <label class="filter-checkbox-item">
+                <input type="checkbox" id="filter-wheelchair" />
+                <span>♿ Wheelchair Accessible</span>
+              </label>
+
+              <label class="filter-checkbox-item">
+                <input type="checkbox" id="filter-ramp" />
+                <span>📐 Ramp Available</span>
+              </label>
+
+              <label class="filter-checkbox-item">
+                <input type="checkbox" id="filter-washroom" />
+                <span>🚻 Accessible Washroom</span>
+              </label>
+
+              <label class="filter-checkbox-item">
+                <input type="checkbox" id="filter-elevator" />
+                <span>🛗 Elevator Available</span>
+              </label>
+
+              <label class="filter-checkbox-item">
+                <input type="checkbox" id="filter-parking" />
+                <span>🅿️ Accessible Parking</span>
+              </label>
+            </div>
+          </aside>
+
+          <!-- Search Results Stream -->
+          <div class="search-results-area">
+            <div class="search-controls-bar">
+              <div class="results-count" id="search-results-count">Loading places...</div>
+              <div class="sort-wrapper">
+                <label for="sort-select" style="font-size:0.9rem; font-weight:600;">Sort by:</label>
+                <select id="sort-select" class="sort-select">
+                  <option value="newest">Newest Added</option>
+                  <option value="rating">Highest Rated</option>
+                  <option value="reviews">Most Reviewed</option>
+                  <option value="name">Name (A - Z)</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Places Cards Grid -->
+            <div class="places-grid" id="search-places-grid">
+              <!-- Dynamically populated -->
+            </div>
+
+            <!-- No Results Friendly Empty State -->
+            <div class="empty-state" id="search-empty-state" style="display:none;">
+              <div class="empty-state-icon">🔍</div>
+              <h3 class="empty-state-title">No Matching Places Found</h3>
+              <p class="empty-state-text">
+                We couldn't find any places matching your current combination of filters. Try clearing some accessibility checkboxes or searching for a different city.
+              </p>
+              <button class="btn btn-primary" id="btn-reset-filters-empty">Reset All Filters</button>
+            </div>
+
+            <!-- Pagination -->
+            <nav class="pagination" id="search-pagination" aria-label="Search results pagination">
+              <!-- Populated dynamically -->
+            </nav>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- =============================================================
+         VIEW 3: ABOUT & ACCESSIBILITY
+         ============================================================= -->
+    <div class="view-container" id="view-about" style="display:none;">
+      <div class="container" style="max-width:860px; padding-top:3.5rem; padding-bottom:5rem;">
+        <h1 style="font-size:2.5rem; font-weight:800; margin-bottom:1rem;">About Accessible Place Finder</h1>
+        <p style="font-size:1.15rem; color:var(--text-muted); line-height:1.7; margin-bottom:2rem;">
+          Accessible Place Finder is an inclusive civic platform dedicated to breaking down physical barriers in urban environments. We empower individuals with mobility challenges, wheelchair users, caregivers, and families with accessible strollers to explore cities with complete confidence.
+        </p>
+
+        <h2 style="font-size:1.6rem; font-weight:700; margin:2rem 0 1rem;">Accessibility Standards We Follow</h2>
+        <div style="background:var(--bg-surface); border:1px solid var(--border-color); border-radius:var(--radius-lg); padding:1.75rem; margin-bottom:2rem; box-shadow:var(--shadow-sm);">
+          <ul style="padding-left:1.5rem; line-height:1.8; color:var(--text-muted);">
+            <li><strong>ADA Compliance:</strong> Verifying slope grades (minimum 1:12 for ramps), door clearance widths of at least 32-36 inches, and designated accessible parking stalls.</li>
+            <li><strong>Digital Accessibility (WCAG 2.1 AA & AAA):</strong> High-contrast color modes, readable scalable typography, screen-reader semantic landmarks, and full keyboard navigation.</li>
+            <li><strong>Community Verification:</strong> Every user-contributed review and report helps maintain accurate, timely ground truth.</li>
+          </ul>
+        </div>
+
+        <h2 style="font-size:1.6rem; font-weight:700; margin:2rem 0 1rem;">How to Contribute</h2>
+        <p style="font-size:1.05rem; line-height:1.7; color:var(--text-muted); margin-bottom:1.5rem;">
+          Anyone can browse places without an account. When you register a free account, you can submit star ratings, write detailed facility reviews, and flag inaccurate information. Administrators inspect and verify community reports to ensure information remains accurate.
+        </p>
+      </div>
+    </div>
+
+    <!-- =============================================================
+         VIEW 4: CONTACT & SUPPORT
+         ============================================================= -->
+    <div class="view-container" id="view-contact" style="display:none;">
+      <div class="container" style="max-width:760px; padding-top:3.5rem; padding-bottom:5rem;">
+        <h1 style="font-size:2.5rem; font-weight:800; margin-bottom:1rem;">Contact & Accessibility Support</h1>
+        <p style="font-size:1.1rem; color:var(--text-muted); margin-bottom:2.5rem;">
+          Have a question, feedback, or need assistance? Reach out to our team.
+        </p>
+
+        <div style="background:var(--bg-surface); border:1px solid var(--border-color); border-radius:var(--radius-lg); padding:2rem; box-shadow:var(--shadow-sm); margin-bottom:2rem;">
+          <h2 style="font-size:1.35rem; font-weight:700; margin-bottom:1rem;">Direct Contact Channels</h2>
+          <p style="margin-bottom:0.75rem;"><strong>Email:</strong> <a href="mailto:support@accessibleplacefinder.org">support@accessibleplacefinder.org</a></p>
+          <p style="margin-bottom:0.75rem;"><strong>A11y Hotline:</strong> +1 (800) 555-ACCESS (222-377)</p>
+          <p style="margin-bottom:0.75rem;"><strong>Operating Hours:</strong> Monday &ndash; Friday, 9:00 AM &ndash; 6:00 PM EST</p>
+        </div>
+
+        <form id="contact-form" onsubmit="event.preventDefault(); window.API.showToast('Thank you! Your message has been received.', 'success'); this.reset();" style="background:var(--bg-surface); border:1px solid var(--border-color); border-radius:var(--radius-lg); padding:2rem; box-shadow:var(--shadow-sm);">
+          <h2 style="font-size:1.35rem; font-weight:700; margin-bottom:1.25rem;">Send Us a Message</h2>
+          <div class="form-group">
+            <label class="form-label" for="contact-name">Full Name <span class="required">*</span></label>
+            <input type="text" id="contact-name" class="form-control" required placeholder="Your full name" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="contact-email">Email Address <span class="required">*</span></label>
+            <input type="email" id="contact-email" class="form-control" required placeholder="you@example.com" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="contact-message">Message <span class="required">*</span></label>
+            <textarea id="contact-message" class="form-control" rows="4" required placeholder="Describe your question or suggestion..."></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Send Message</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- =============================================================
+         VIEW 5: ADMIN DASHBOARD
+         ============================================================= -->
+    <div class="view-container" id="view-admin" style="display:none;">
+      <div class="container" style="padding-top:2.5rem; padding-bottom:5rem;" id="admin-view-container">
+        
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2rem; flex-wrap:wrap; gap:1rem;">
+          <div>
+            <h1 style="font-size:2.2rem; font-weight:800;">Administrator Dashboard</h1>
+            <p style="color:var(--text-muted);">Manage places, inspect community reviews, and resolve accessibility inaccuracy reports.</p>
+          </div>
+          <button class="btn btn-primary" id="btn-admin-add-place">
+            <span>➕ Add New Place</span>
+          </button>
+        </div>
+
+        <!-- KPI Stats Cards -->
+        <div class="admin-stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon stat-icon-blue">🏢</div>
+            <div class="stat-info">
+              <div class="stat-value" id="stat-total-places">0</div>
+              <div class="stat-label">Total Places</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon stat-icon-green">👥</div>
+            <div class="stat-info">
+              <div class="stat-value" id="stat-total-users">0</div>
+              <div class="stat-label">Registered Users</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon stat-icon-amber">⭐</div>
+            <div class="stat-info">
+              <div class="stat-value" id="stat-total-reviews">0</div>
+              <div class="stat-label">Total Reviews</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon stat-icon-purple">🚩</div>
+            <div class="stat-info">
+              <div class="stat-value" id="stat-pending-reports">0</div>
+              <div class="stat-label">Pending Reports</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tabbed Navigation -->
+        <div class="admin-tabs" role="tablist">
+          <button class="admin-tab-btn active" data-tab="places" role="tab">🏢 Manage Places</button>
+          <button class="admin-tab-btn" data-tab="reviews" role="tab">💬 Moderate Reviews</button>
+          <button class="admin-tab-btn" data-tab="reports" role="tab">🚩 Inaccuracy Reports</button>
+        </div>
+
+        <!-- TAB CONTENT: PLACES -->
+        <div class="admin-tab-content" id="admin-tab-places">
+          <div style="margin-bottom:1.25rem; display:flex; justify-content:space-between; align-items:center;">
+            <input type="text" id="admin-place-search" class="form-control" style="max-width:320px;" placeholder="Search places in admin..." />
+          </div>
+          <div class="data-table-container">
+            <table class="data-table" aria-label="Admin Places List">
+              <thead>
+                <tr>
+                  <th>Place Details</th>
+                  <th>Category</th>
+                  <th>City</th>
+                  <th>Facilities</th>
+                  <th>Rating</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="admin-places-tbody">
+                <!-- Dynamically populated -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- TAB CONTENT: REVIEWS -->
+        <div class="admin-tab-content" id="admin-tab-reviews" style="display:none;">
+          <div class="data-table-container">
+            <table class="data-table" aria-label="Admin Reviews List">
+              <thead>
+                <tr>
+                  <th>Place</th>
+                  <th>Author</th>
+                  <th>Rating</th>
+                  <th>Comment</th>
+                  <th>Date</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="admin-reviews-tbody">
+                <!-- Dynamically populated -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- TAB CONTENT: REPORTS -->
+        <div class="admin-tab-content" id="admin-tab-reports" style="display:none;">
+          <div class="data-table-container">
+            <table class="data-table" aria-label="Admin Inaccuracy Reports List">
+              <thead>
+                <tr>
+                  <th>Place</th>
+                  <th>Issue Type</th>
+                  <th>Facility</th>
+                  <th>Description</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="admin-reports-tbody">
+                <!-- Dynamically populated -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Main Footer -->
+  <footer class="main-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand-title">Accessible Place Finder</div>
+          <p class="footer-desc">
+            A comprehensive, open accessibility directory dedicated to universal access, physical independence, and transparent community audits.
+          </p>
+        </div>
+
+        <div>
+          <h3 class="footer-heading">Quick Links</h3>
+          <ul class="footer-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#search">Search Places</a></li>
+            <li><a href="#about">About Project</a></li>
+            <li><a href="#contact">Contact & Help</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="footer-heading">Top Categories</h3>
+          <ul class="footer-links">
+            <li><a href="#search">Healthcare & Clinics</a></li>
+            <li><a href="#search">Accessible Restaurants</a></li>
+            <li><a href="#search">Public Libraries</a></li>
+            <li><a href="#search">Transit Stations</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="footer-heading">Accessibility</h3>
+          <p style="font-size:0.875rem; line-height:1.6; margin-bottom:1rem;">
+            Designed to comply with WCAG 2.1 AA accessibility guidelines.
+          </p>
+          <span style="font-size:1.5rem;" title="Wheelchair, Braille, High Contrast, Universal Access">♿ 🦮 🛗 🚻</span>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>&copy; 2026 Accessible Place Finder. All rights reserved. Built with Node.js, Express & MongoDB.</div>
+        <div>Universal Accessibility &bull; Independent Living &bull; Barrier-Free Cities</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- =============================================================
+       MODALS
+       ============================================================= -->
+
+  <!-- 1. LOGIN MODAL -->
+  <div class="modal-overlay" id="modal-login" role="dialog" aria-modal="true" aria-labelledby="login-modal-title">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h2 class="modal-title" id="login-modal-title">User & Admin Login</h2>
+        <button class="modal-close-btn" aria-label="Close login dialog">&times;</button>
+      </div>
+      <div class="modal-body">
+        <!-- Quick Fill Demo Credentials Box -->
+        <div class="demo-creds-box">
+          <div class="demo-creds-title">⚡ Quick Test Credentials:</div>
+          <div>Click below to automatically fill sample login credentials:</div>
+          <div class="demo-creds-btns">
+            <button type="button" class="btn btn-outline btn-sm" id="btn-fill-admin-creds">Admin Account</button>
+            <button type="button" class="btn btn-outline btn-sm" id="btn-fill-user-creds">User (Sarah Jenkins)</button>
+          </div>
+        </div>
+
+        <form id="form-login">
+          <div class="form-group">
+            <label class="form-label" for="login-email">Email Address <span class="required">*</span></label>
+            <input type="email" id="login-email" name="email" class="form-control" required placeholder="you@example.com" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="login-password">Password <span class="required">*</span></label>
+            <input type="password" id="login-password" name="password" class="form-control" required placeholder="Enter password" />
+          </div>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.25rem;">
+            <label style="display:flex; align-items:center; gap:0.5rem; font-size:0.9rem; cursor:pointer;">
+              <input type="checkbox" name="remember" checked /> Remember session
+            </label>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width:100%;">Sign In</button>
+        </form>
+        <p style="text-align:center; font-size:0.9rem; margin-top:1.25rem;">
+          Don't have an account? <a href="#" id="link-switch-register">Register here</a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. REGISTER MODAL -->
+  <div class="modal-overlay" id="modal-register" role="dialog" aria-modal="true" aria-labelledby="register-modal-title">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h2 class="modal-title" id="register-modal-title">Create an Account</h2>
+        <button class="modal-close-btn" aria-label="Close register dialog">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="form-register">
+          <div class="form-group">
+            <label class="form-label" for="reg-name">Full Name <span class="required">*</span></label>
+            <input type="text" id="reg-name" name="name" class="form-control" required placeholder="Your full name" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="reg-email">Email Address <span class="required">*</span></label>
+            <input type="email" id="reg-email" name="email" class="form-control" required placeholder="you@example.com" />
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="reg-pass">Password <span class="required">*</span></label>
+              <input type="password" id="reg-pass" name="password" class="form-control" required minlength="6" placeholder="Min. 6 chars" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="reg-pass-confirm">Confirm Password <span class="required">*</span></label>
+              <input type="password" id="reg-pass-confirm" name="confirmPassword" class="form-control" required minlength="6" placeholder="Repeat password" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Accessibility Preferences (Optional):</label>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.5rem; font-size:0.9rem;">
+              <label><input type="checkbox" name="prefWheelchair" /> Wheelchair User</label>
+              <label><input type="checkbox" name="prefRamp" /> Ramp Access</label>
+              <label><input type="checkbox" name="prefWashroom" /> Accessible Restrooms</label>
+              <label><input type="checkbox" name="prefElevator" /> Elevator Required</label>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="width:100%;">Complete Registration</button>
+        </form>
+        <p style="text-align:center; font-size:0.9rem; margin-top:1.25rem;">
+          Already have an account? <a href="#" id="link-switch-login">Login here</a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. USER PROFILE MODAL -->
+  <div class="modal-overlay" id="modal-profile" role="dialog" aria-modal="true" aria-labelledby="profile-modal-title">
+    <div class="modal-container modal-container-lg">
+      <div class="modal-header">
+        <h2 class="modal-title" id="profile-modal-title">User Profile & Activity</h2>
+        <button class="modal-close-btn" aria-label="Close profile dialog">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="form-profile" style="margin-bottom:2rem; padding-bottom:1.5rem; border-bottom:1px solid var(--border-color);">
+          <h3 style="font-size:1.15rem; font-weight:700; margin-bottom:1rem;">Your Profile Details</h3>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Full Name</label>
+              <input type="text" name="name" class="form-control" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Email Address (Read-only)</label>
+              <input type="email" name="email" class="form-control" disabled style="background:var(--bg-subtle);" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Your Preferred Facilities:</label>
+            <div style="display:flex; gap:1.25rem; flex-wrap:wrap; font-size:0.9rem;">
+              <label><input type="checkbox" name="prefWheelchair" /> Wheelchair</label>
+              <label><input type="checkbox" name="prefRamp" /> Ramps</label>
+              <label><input type="checkbox" name="prefWashroom" /> Washrooms</label>
+              <label><input type="checkbox" name="prefElevator" /> Elevators</label>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary btn-sm">Update Profile</button>
+        </form>
+
+        <h3 style="font-size:1.15rem; font-weight:700; margin-bottom:1rem;">Your Contributed Reviews</h3>
+        <div id="profile-my-reviews" style="margin-bottom:2rem;"></div>
+
+        <h3 style="font-size:1.15rem; font-weight:700; margin-bottom:1rem;">Your Inaccuracy Reports</h3>
+        <div id="profile-my-reports"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. PLACE DETAIL MODAL -->
+  <div class="modal-overlay" id="modal-place-detail" role="dialog" aria-modal="true" aria-labelledby="detail-modal-title">
+    <div class="modal-container modal-container-lg">
+      <div class="modal-header">
+        <div>
+          <span id="detail-modal-category" class="status-badge" style="background:#e0f2fe; color:#0369a1; margin-bottom:0.25rem;">Category</span>
+          <h2 class="modal-title" id="detail-modal-title">Place Details</h2>
+        </div>
+        <button class="modal-close-btn" aria-label="Close details dialog">&times;</button>
+      </div>
+      <div class="modal-body" id="detail-modal-body">
+        <!-- Dynamically rendered via places.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. REPORT INACCURACY MODAL -->
+  <div class="modal-overlay" id="modal-report-inaccuracy" role="dialog" aria-modal="true" aria-labelledby="report-modal-title">
+    <div class="modal-container">
+      <div class="modal-header">
+        <div>
+          <h2 class="modal-title" id="report-modal-title">Report Inaccurate Accessibility Info</h2>
+          <small style="color:var(--text-light);" id="report-modal-place-name">Location</small>
+        </div>
+        <button class="modal-close-btn" aria-label="Close report dialog">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="report-inaccuracy-form">
+          <div class="form-group">
+            <label class="form-label" for="report-issue-type">Issue Type <span class="required">*</span></label>
+            <select id="report-issue-type" name="issueType" class="form-control" required>
+              <option value="Facility Missing">Facility Missing (e.g. No ramp at entrance)</option>
+              <option value="Facility Broken / Inoperable">Facility Broken / Inoperable (e.g. Elevator out of order)</option>
+              <option value="Incorrect Address / Hours">Incorrect Address / Hours</option>
+              <option value="Misleading Accessibility Information">Misleading Accessibility Information</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="report-facility">Affected Facility</label>
+            <select id="report-facility" name="facilityAffected" class="form-control">
+              <option value="Wheelchair Access">Wheelchair Access</option>
+              <option value="Ramp">Ramp</option>
+              <option value="Washroom">Washroom</option>
+              <option value="Elevator">Elevator</option>
+              <option value="Accessible Parking">Accessible Parking</option>
+              <option value="Hours/Contact">Hours/Contact</option>
+              <option value="General Information">General Information</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="report-desc">Detailed Description <span class="required">*</span></label>
+            <textarea id="report-desc" name="description" class="form-control" rows="4" required minlength="10" placeholder="Please describe what you observed (e.g., 'The ramp on the left side is blocked by construction', 'The accessible door opener button is unresponsive')."></textarea>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="report-name">Your Name (Optional)</label>
+              <input type="text" id="report-name" name="reporterName" class="form-control" placeholder="Optional name" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="report-email">Your Email (Optional)</label>
+              <input type="email" id="report-email" name="reporterEmail" class="form-control" placeholder="Optional email" />
+            </div>
+          </div>
+
+          <div style="display:flex; justify-content:flex-end; gap:0.75rem; margin-top:1.5rem;">
+            <button type="button" class="btn btn-outline" onclick="window.Reports.closeReportModal()">Cancel</button>
+            <button type="submit" class="btn btn-danger">Submit Inaccuracy Report</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. ADMIN ADD/EDIT PLACE MODAL -->
+  <div class="modal-overlay" id="modal-admin-place" role="dialog" aria-modal="true" aria-labelledby="admin-place-modal-title">
+    <div class="modal-container modal-container-lg">
+      <div class="modal-header">
+        <h2 class="modal-title" id="admin-place-modal-title">Add New Place</h2>
+        <button class="modal-close-btn" aria-label="Close place form">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="admin-place-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Place Name <span class="required">*</span></label>
+              <input type="text" name="name" class="form-control" required placeholder="e.g. Metro General Hospital" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Category <span class="required">*</span></label>
+              <select name="category" class="form-control" required>
+                <option value="Healthcare">Healthcare</option>
+                <option value="Restaurant & Cafe">Restaurant & Cafe</option>
+                <option value="Education & Library">Education & Library</option>
+                <option value="Park & Recreation">Park & Recreation</option>
+                <option value="Shopping & Mall">Shopping & Mall</option>
+                <option value="Transit & Station">Transit & Station</option>
+                <option value="Museum & Culture">Museum & Culture</option>
+                <option value="Government & Public">Government & Public</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Description <span class="required">*</span></label>
+            <textarea name="description" class="form-control" rows="3" required placeholder="Provide an overview of the place and general accessibility..."></textarea>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Physical Street Address <span class="required">*</span></label>
+              <input type="text" name="address" class="form-control" required placeholder="123 Main St" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">City <span class="required">*</span></label>
+              <input type="text" name="city" class="form-control" required placeholder="e.g. New York, Chicago" />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Contact Phone</label>
+              <input type="text" name="contactPhone" class="form-control" placeholder="+1 (555) 123-4567" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Contact Email</label>
+              <input type="email" name="contactEmail" class="form-control" placeholder="contact@venue.org" />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Website URL</label>
+              <input type="text" name="website" class="form-control" placeholder="https://example.com" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Opening Hours</label>
+              <input type="text" name="openingHours" class="form-control" placeholder="Mon-Fri: 9am - 5pm" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Core Accessibility Facilities:</label>
+            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:0.75rem; background:var(--bg-subtle); padding:1rem; border-radius:var(--radius-md);">
+              <label><input type="checkbox" name="wheelchairAccessible" /> ♿ Wheelchair Access</label>
+              <label><input type="checkbox" name="rampAvailable" /> 📐 Ramp Available</label>
+              <label><input type="checkbox" name="accessibleWashroom" /> 🚻 Accessible Washroom</label>
+              <label><input type="checkbox" name="elevatorAvailable" /> 🛗 Elevator Available</label>
+              <label><input type="checkbox" name="accessibleParking" /> 🅿️ Accessible Parking</label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Additional Accessibility Notes</label>
+            <input type="text" name="additionalAccessibility" class="form-control" placeholder="Tactile floor paving, power automatic sliding doors, Braille signage..." />
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Photo URL</label>
+              <input type="text" name="photoUrl" class="form-control" placeholder="https://images.unsplash.com/..." />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Or Upload Photo File</label>
+              <input type="file" name="photo" accept="image/png, image/jpeg, image/webp" class="form-control" />
+            </div>
+          </div>
+
+          <div style="display:flex; justify-content:flex-end; gap:0.75rem; margin-top:1.5rem;">
+            <button type="button" class="btn btn-outline" onclick="window.Admin.closePlaceModal()">Cancel</button>
+            <button type="submit" class="btn btn-primary">Save Place</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7. ADMIN RESOLVE REPORT MODAL -->
+  <div class="modal-overlay" id="modal-admin-resolve-report" role="dialog" aria-modal="true" aria-labelledby="resolve-modal-title">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h2 class="modal-title" id="resolve-modal-title">Update Report Status</h2>
+        <button class="modal-close-btn" aria-label="Close resolve dialog">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="admin-resolve-report-form">
+          <input type="hidden" name="reportId" />
+          <div class="form-group">
+            <label class="form-label">Status <span class="required">*</span></label>
+            <select name="status" class="form-control" required>
+              <option value="pending">Pending</option>
+              <option value="investigating">Investigating</option>
+              <option value="resolved">Resolved</option>
+              <option value="dismissed">Dismissed</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Administrator Notes & Verification Steps</label>
+            <textarea name="adminNotes" class="form-control" rows="3" placeholder="Describe actions taken (e.g. 'Contacted property manager; elevator repaired on Nov 16')."></textarea>
+          </div>
+          <div style="display:flex; justify-content:flex-end; gap:0.75rem; margin-top:1.5rem;">
+            <button type="button" class="btn btn-outline" onclick="window.Admin.closeResolveReportModal()">Cancel</button>
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript Modules -->
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/places.js"></script>
+  <script src="js/reports.js"></script>
+  <script src="js/admin.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

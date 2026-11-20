@@ -1,0 +1,39 @@
+{
+  "name": "accessible-place-finder-backend",
+  "version": "1.0.0",
+  "description": "Backend API for Accessible Place Finder - Discover places with accessibility facilities",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "seed": "node utils/seed.js",
+    "test": "node tests/integration.test.js"
+  },
+  "keywords": [
+    "accessibility",
+    "disability",
+    "places",
+    "express",
+    "mongodb",
+    "jwt",
+    "a11y"
+  ],
+  "author": "Accessible Place Finder Team",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "express-rate-limit": "^7.3.1",
+    "express-validator": "^7.1.0",
+    "helmet": "^7.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.5.1",
+    "multer": "^1.4.5-lts.1"
+  },
+  "devDependencies": {
+    "mongodb-memory-server": "^9.4.0",
+    "supertest": "^7.0.0"
+  }
+}
